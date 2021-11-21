@@ -92,8 +92,8 @@ case 2:
 	in this case, stack 2 is not empty, so i2s != i2e.
 				i1					?	?	?	?	?	?
 			_	_	_	_	_	_	_	_	_	_	_	_
-					？	？
-							？	？  ?
+					?	?
+							?	?  ?
 	but this case is very complex, so we must continue to discuss different case.
 		case i3 == i2e, in this case there is no free space between stack 2 and stack 3:
 					i1					i3
@@ -147,7 +147,7 @@ case 2:
 					i1						?	?	?	?	?
 			_	_	_	_	_	_	_	_	_	_	_	_
 						i2s
-							？	？  ?
+							?	?  ?
 			if the target stack is stack1,we must move stack2 to right 1 position,as shown below:
 						i1						i3
 				_	_	_	x	y	_	_	_	_	_	_	_
