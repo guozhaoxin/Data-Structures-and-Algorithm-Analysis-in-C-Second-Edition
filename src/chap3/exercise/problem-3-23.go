@@ -93,7 +93,7 @@ case 2:
 				i1					?	?	?	?	?	?
 			_	_	_	_	_	_	_	_	_	_	_	_
 					?	?
-							?	?  ?
+							?	?   ?
 	but this case is very complex, so we must continue to discuss different case.
 		case i3 == i2e, in this case there is no free space between stack 2 and stack 3:
 					i1					i3
@@ -144,10 +144,10 @@ case 2:
 				after operation, i2s = i2s - 1, i2e = i2e - 1.
 
 		case i1 == i2s - 1, so there is no free space between stack1 and stack2 while there is at least one pos between stack2 and stack3.
-					i1						?	?	?	?	?
+					i1					?	?	?	?	?
 			_	_	_	_	_	_	_	_	_	_	_	_
 						i2s
-							?	?  ?
+							?	?   ?
 			if the target stack is stack1,we must move stack2 to right 1 position,as shown below:
 						i1						i3
 				_	_	_	x	y	_	_	_	_	_	_	_
