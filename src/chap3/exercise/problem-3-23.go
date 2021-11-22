@@ -421,6 +421,10 @@ func (self *MultStacks) Pop(index int) (value int,res bool) {
 		value = self.array[self.i1]
 		self.array[self.i1] = 0
 		self.i1--
+		if self.i2s == self.i1 + 1{
+			self.i2s = self.i1
+			self.i2e = self.i1
+		}
 		res = true
 	}
 
@@ -433,6 +437,11 @@ func (self *MultStacks) Pop(index int) (value int,res bool) {
 		value = self.array[self.i2e]
 		self.array[self.i2e] = 0
 		res = true
+		if self.i2s == self.i2e { // stack2 is empty
+			fmt.Println("reset i2")
+			self.i2s = self.i1
+			self.i2e = self.i1
+		}
 		return
 	}
 
