@@ -90,9 +90,6 @@ func (self *AVL) insert(root *TreeNode,value int) *TreeNode{
 			leftHeight = root.left.height
 		}
 		rightHeight := node.height
-		//if root.right != nil{
-		//	rightHeight = root.right.height
-		//}
 		if absInt(leftHeight - rightHeight) > 1{
 			if value < root.right.value{ // right-left
 				return RotateRightLeft(root)
@@ -110,9 +107,6 @@ func (self *AVL) insert(root *TreeNode,value int) *TreeNode{
 		}
 		root.left = node
 		leftHeight := node.height
-		//if root.left != nil{
-		//	leftHeight = root.left.height
-		//}
 		rightHeight := -1
 		if root.right != nil{
 			rightHeight = root.right.height
@@ -133,10 +127,6 @@ func (self *AVL) insert(root *TreeNode,value int) *TreeNode{
 }
 
 func (self *AVL) InsertWithStack(value int) bool {
-	//if self.root == nil{
-	//	self.root = &TreeNode{value: value,height: 0,left: nil,right: nil}
-	//	return true
-	//}
 	stack := make([]*TreeNode,0)
 	var node *TreeNode
 	root := self.root
@@ -164,9 +154,9 @@ func (self *AVL) InsertWithStack(value int) bool {
 			leftHeight := getLeftHeight(top)
 			rightHeight := getRightHeight(top)
 			if absInt(leftHeight - rightHeight) > 1{
-				if value < node.value{ // 右左
+				if value < node.value{
 					node = RotateRightLeft(top)
-				}else { // 右右
+				}else {
 					node = RotateRightRight(top)
 				}
 			}else {
@@ -178,9 +168,9 @@ func (self *AVL) InsertWithStack(value int) bool {
 			leftHeight := getLeftHeight(top)
 			rightHeight := getRightHeight(top)
 			if absInt(leftHeight - rightHeight) > 1{
-				if value > node.value{ // 左右
+				if value > node.value{
 					node = RotateLeftRight(top)
-				}else { // 左左
+				}else {
 					node = RotateLeftLeft(top)
 				}
 			}else {
