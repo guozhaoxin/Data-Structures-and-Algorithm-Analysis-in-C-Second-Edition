@@ -1,6 +1,8 @@
 package content
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func absInt(value int) int {
 	if value < 0{
@@ -14,6 +16,41 @@ func max(v1,v2 int) int {
 		return v1
 	}
 	return v2
+}
+
+func getLeftHeight(node *TreeNode) int {
+	if node == nil{
+		return -1
+	}
+	if node.left == nil{
+		return -1
+	}
+	return node.left.height
+}
+
+func getRightHeight(node *TreeNode) int {
+	if node == nil{
+		return -1
+	}
+	if node.right == nil{
+		return -1
+	}
+	return node.right.height
+}
+
+func setNodeHeight(node *TreeNode){
+	if node == nil{
+		return
+	}
+	leftHeight := -1
+	if node.left != nil{
+		leftHeight = node.left.height
+	}
+	rightHeight := -1
+	if node.right != nil{
+		rightHeight = node.right.height
+	}
+	node.height = max(leftHeight,rightHeight) + 1
 }
 
 type TreeNode struct{
@@ -94,6 +131,68 @@ func (self *AVL) insert(root *TreeNode,value int) *TreeNode{
 		return nil
 	}
 }
+
+func (self *AVL) InsertWithStack(value int) bool {
+	//if self.root == nil{
+	//	self.root = &TreeNode{value: value,height: 0,left: nil,right: nil}
+	//	return true
+	//}
+	stack := make([]*TreeNode,0)
+	var node *TreeNode
+	root := self.root
+	for {
+		if root == nil{
+			node = &TreeNode{value: value,left: nil,right: nil,height: 0}
+			break
+		}
+		if root.value == value{
+			return false
+		}
+		if root.value < value {
+			stack = append(stack,root)
+			root = root.right
+		}else {
+			stack = append(stack,root)
+			root = root.left
+		}
+	}
+	for len(stack) != 0{
+		top := stack[len(stack) - 1]
+		stack = stack[:len(stack) - 1]
+		if top.value < value{
+			top.right = node
+			leftHeight := getLeftHeight(top)
+			rightHeight := getRightHeight(top)
+			if absInt(leftHeight - rightHeight) > 1{
+				if value < node.value{ // 右左
+					node = RotateRightLeft(top)
+				}else { // 右右
+					node = RotateRightRight(top)
+				}
+			}else {
+				setNodeHeight(top)
+				node = top
+			}
+		}else {
+			top.left = node
+			leftHeight := getLeftHeight(top)
+			rightHeight := getRightHeight(top)
+			if absInt(leftHeight - rightHeight) > 1{
+				if value > node.value{ // 左右
+					node = RotateLeftRight(top)
+				}else { // 左左
+					node = RotateLeftLeft(top)
+				}
+			}else {
+				setNodeHeight(top)
+				node = top
+			}
+		}
+	}
+	self.root = node
+	return true
+}
+
 
 func (self *AVL)Order(){
 	order(self.root)
